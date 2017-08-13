@@ -1,0 +1,19 @@
+#
+# dmd @cmdfile. show dmd -v
+# dmd commandline: https://dlang.org/dmd-windows.html
+# debug: -g 
+# optimize: -release -O -inline -boundscheck=[on|safeonly|off]
+# optilink commandline: http://www.digitalmars.com/ctg/optlink.html
+#  -L/SUBSYSTEM:CONSOLE
+#  -L/SUBSYSTEM:WINDOWS:4.0
+# MS links: https://msdn.microsoft.com/ja-jp/library/y0zzbyt4.aspx
+#  -L/SUBSYSTEM:CONSOLE
+#  -L/SUBSYSTEM:WINDOWS
+#  -L/ENTRY:mainCRTStartup #// It is necessary for the window application starting from the main function.
+#  -L/INCREMENTAL:NO
+#  -L/OPT:REF
+-wi 
+# dlang sorce files: 
+updater.d
+config.d
+debuglog.d
