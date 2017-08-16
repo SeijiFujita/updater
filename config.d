@@ -45,7 +45,6 @@ enum string Product_BuildDMD  = "Product_BuildDMD";
 enum string LastPath     = "LastPath";
 enum string BookmarkData = "BookmarkData";
 //
-enum string updateURL = "http://github.com/SeijiFujita/PRODUT/update.json";
 
 static Config cf;
 
@@ -113,9 +112,10 @@ public:
 		init();
 		setupPath();
 	}
-
-	this(string url) {
-		getUrlConfig(url);
+	// config
+	this(string configData) {
+		init();
+		parseConfig(configData);
 	}
 
 	//
@@ -236,12 +236,41 @@ public:
 		integerArray.remove(key);
 	}
 // @---------------------------------------------------------------------------
-	//
-	void getUrlConfig(string url) {
+	// test data enum string updateURL = "https://raw.githubusercontent.com/SeijiFujita/updater/master/updater.conf";
+	void getUrlparseConfig(string url) {
 		import std.net.curl;
 		parseConfig(cast(string) std.net.curl.get(url));
 	}
-
+	string getUniqueString() {
+		import std.datetime.systime;
+		import std.format;
+		SysTime ctime = Clock.currTime();
+		with(ctime) {
+			return format("%04d%02d%02d-%02d%02d%02d.%03d",
+				year,
+				month,
+				day,
+				hour,
+				minute,
+				second,
+				ctime.fracSecs.total!"msecs");
+		}
+	}
+	//
+	void getUrlConfig(string url) {
+		import std.net.curl;
+		string tempPath = tempDir() ~ "update-" ~ getUniqueString();
+		mkdirRecurse(tempPath);
+		string configPath = buildPath(tempPath, "nconfig.json");
+		writeln("url = ", url);
+		writeln("configPath = ", configPath);
+		// write(configPath, std.net.curl.get(url);
+		std.net.curl.download(url, configPath);
+		if (!loadConfig(configPath)) {
+			assert(false, "loadConfig: JSON Errror" ~ __FILE__ ~ ":" ~ to!string(__LINE__));
+		}
+		//exRemove(configPath);
+	}
 // @---------------------------------------------------------------------------
 	// ProductName
 	void setProductName(string s) { // @property {

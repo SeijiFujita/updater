@@ -1,0 +1,8 @@
+{
+	"@config":"type01",
+	"ProductName":"PRODUCT",
+	"ProductReleaseBuild":900,
+	"ProductVersion":"0.1.0a",
+	"Product_BuildDATE":"Sun Aug 13 18:14:25 2017",
+	"Product_BuildDMD":"Digital Mars D 2075"
+}

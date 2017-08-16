@@ -76,7 +76,7 @@ version = useDebugLog;
 //version = useFilenameAddDATE;
 
 /// Write directly to the file.
-//version = useDirectWrite;
+version = useDirectWrite;
 
 // Module Test
 //version = Module_TEST; 
@@ -147,7 +147,7 @@ unittest {
 /// return timeString
 string getDateTimeStr()
 {
-	import std.datetime;
+	import std.datetime.systime;
 	SysTime ctime = Clock.currTime();
 	const auto fsec = ctime.fracSecs.total!"msecs";
 	
@@ -329,7 +329,7 @@ public:
 	}
 	
 	string getDateStr() {
-		import std.datetime;
+		import std.datetime.systime;
 		SysTime ctime = Clock.currTime();
 		return format(
 		           "%04d-%02d-%02d",
